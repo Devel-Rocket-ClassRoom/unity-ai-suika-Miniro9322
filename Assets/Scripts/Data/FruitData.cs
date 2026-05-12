@@ -35,6 +35,10 @@ namespace SuikaGame.Data
         [Tooltip("머지 결과 다음 단계 과일 데이터. 최종 단계(11번 수박)는 null.")]
         public FruitData nextStage;
 
+        [Header("스폰 프리팹")]
+        [Tooltip("이 과일의 인스턴스를 생성할 때 사용할 프리팹. FruitPrefabGenerator 실행 시 자동 할당된다.")]
+        public GameObject prefab;
+
         /// <summary>최종 단계(수박) 여부.</summary>
         public bool IsFinalStage => nextStage == null;
     }
