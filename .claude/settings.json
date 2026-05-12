@@ -1,0 +1,47 @@
+{
+    "permissions": {
+        "allow": [
+        "Read",
+        "Bash(git status)",
+        "Bash(git diff *)",
+        "Bash(npm run *)"
+        ],
+        "ask": [
+        "Edit(./.env)",
+        "Edit(./.env.*)"
+        ],
+        "deny": [
+        "Bash(rm -rf *)",
+        "Bash(curl * | sh)"
+        ],
+        "defaultMode": "plan"
+    },
+    "hooks": {
+        "PreToolUse": [
+        {
+            "matcher": "Bash",
+            "hooks": [
+            {
+                "type": "command",
+                "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/block-rm.sh"
+            }
+            ]
+        }
+        ],
+        "PostToolUse": [
+        {
+            "matcher": "Edit|Write",
+            "hooks": [
+            {
+                "type": "command",
+                "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/lint.sh"
+            }
+            ]
+        }
+        ]
+    },
+    "[csharp]": {
+        "editor.defaultFormatter": "csharpier.csharpier-vscode",
+        "editor.formatOnSave": true
+    }
+}
