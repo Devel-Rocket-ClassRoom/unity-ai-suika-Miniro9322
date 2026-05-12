@@ -96,31 +96,39 @@ namespace SuikaGame.Gameplay
 
             // 바닥: 가로 = 내부 너비 + 양쪽 벽 두께 (벽 바깥까지 덮음), 세로 = 두께
             ConfigureWall(floor,
-                center: new Vector2(0f, -t * 0.5f),
+                pos:    new Vector2(0f, -t * 0.5f),
                 size:   new Vector2(interiorWidth + t * 2f, t));
 
             // 좌벽: 세로 = 내부 높이, 윗단이 박스 상단과 일치하도록 배치
             ConfigureWall(left,
-                center: new Vector2(-(half + t * 0.5f), interiorHeight * 0.5f),
+                pos:    new Vector2(-(half + t * 0.5f), interiorHeight * 0.5f),
                 size:   new Vector2(t, interiorHeight));
 
             // 우벽
             ConfigureWall(right,
-                center: new Vector2(half + t * 0.5f, interiorHeight * 0.5f),
+                pos:    new Vector2(half + t * 0.5f, interiorHeight * 0.5f),
                 size:   new Vector2(t, interiorHeight));
         }
 
-        private void ConfigureWall(Transform t, Vector2 center, Vector2 size)
+        private void ConfigureWall(Transform t, Vector2 pos, Vector2 size)
         {
-            t.localPosition = Vector3.zero; // 자식 transform 자체는 부모 기준 0,0,0
+            t.localPosition = (Vector3)pos;
             t.localRotation = Quaternion.identity;
             t.localScale = Vector3.one;
 
             var box = t.GetComponent<BoxCollider2D>();
             if (box == null) box = t.gameObject.AddComponent<BoxCollider2D>();
-            box.offset = center;
+            box.offset = Vector2.zero;
             box.size = size;
             if (wallMaterial != null) box.sharedMaterial = wallMaterial;
+
+            // 시각적 요소(SpriteRenderer)가 있다면 크기 동기화
+            var sr = t.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                sr.drawMode = SpriteDrawMode.Sliced;
+                sr.size = size;
+            }
         }
 
 #if UNITY_EDITOR

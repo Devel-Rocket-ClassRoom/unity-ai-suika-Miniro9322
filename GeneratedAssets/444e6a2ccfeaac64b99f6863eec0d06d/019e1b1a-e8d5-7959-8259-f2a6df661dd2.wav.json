@@ -1,0 +1,15 @@
+{
+    "asset": "444e6a2ccfeaac64b99f6863eec0d06d",
+    "fileName": "019e1b1a-e8d5-7959-8259-f2a6df661dd2.wav",
+    "prompt": "Short failing melody, whimsical and not too sad, for a casual game over screen",
+    "negativePrompt": "",
+    "model": "elevenlabs-sound-effects-v2",
+    "modelName": "ElevenLabs Sound Effects V2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

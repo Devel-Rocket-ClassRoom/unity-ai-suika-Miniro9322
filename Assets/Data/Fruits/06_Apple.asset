@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65bf14aa992f8246a517ad2beea9bde, type: 3}
+  m_Name: 06_Apple
+  m_EditorClassIdentifier: Assembly-CSharp::SuikaGame.Data.FruitData
+  level: 6
+  nameKo: "\uC0AC\uACFC"
+  nameEn: Apple
+  relativeRadius: 3.7
+  mergeScore: 21
+  icon: {fileID: 21300000, guid: cf3f6d3296f735b4a93c087db126705f, type: 3}
+  tightRadius: 271
+  nextStage: {fileID: 11400000, guid: 8c7659afa05b53e40a1c6d3becdc9161, type: 2}
+  prefab: {fileID: 3617457147081619125, guid: 036dca0a51a76d149bbff85a9ee1bd57, type: 3}

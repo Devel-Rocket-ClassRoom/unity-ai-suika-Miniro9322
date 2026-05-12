@@ -80,19 +80,48 @@ namespace SuikaGame.Gameplay
             CacheComponents();
             if (data == null) return;
 
-            // CircleCollider2D 반지름
+            // 월드 기준 목표 반지름
             float worldRadius = Mathf.Max(0.001f, baseRadius * data.relativeRadius);
-            circle.radius = worldRadius;
 
-            // 스프라이트
+            // 스프라이트 적용 및 스케일 계산
             if (sr != null)
             {
                 sr.sprite = data.icon;
-                // 스프라이트가 1유닛 = 100픽셀 기준으로 임포트되는 일반적 케이스를 가정.
-                // 정확한 시각 크기는 아이콘 임포트 설정에 따라 후속 #24 에서 미세조정.
-                // 여기서는 콜라이더 반지름만 정확히 맞추고, 시각은 sprite 기본 크기를 사용.
-                sr.transform.localScale = Vector3.one;
-            }
+                
+                if (sr.sprite != null)
+                {
+                    // sprite.pixelsPerUnit 을 고려한 실제 시각 반지름 (Local Unit 단위)
+                    // data.tightRadius 가 0이면 (분석 안됨) bounds extents 사용
+                    float localTightRadius = (data.tightRadius > 0) 
+                        ? (data.tightRadius / sr.sprite.pixelsPerUnit) 
+                        : sr.sprite.bounds.extents.x;
+
+                    if (localTightRadius > 0.0001f)
+                    {
+                        // transform.localScale * localTightRadius = worldRadius 가 되어야 함.
+                        float scale = worldRadius / localTightRadius;
+                        transform.localScale = new Vector3(scale, scale, 1f);
+                        
+                        // Collider 반지름은 scale 이 적용된 후 worldRadius 가 되도록 하되,
+                        // 시각적인 느낌을 위해 실제 영역보다 아주 살짝(약 4%) 작게 설정.
+                        circle.radius = localTightRadius * 0.96f;
+                        }
+                        else
+                        {
+                        transform.localScale = Vector3.one;
+                        circle.radius = worldRadius * 0.96f;
+                        }
+                        }
+                        else
+                        {
+                        transform.localScale = Vector3.one;
+                        circle.radius = worldRadius * 0.96f;
+                        }
+                        }
+                        else
+                        {
+                        circle.radius = worldRadius * 0.96f;
+                        }
 
             // 이름도 갱신해두면 디버깅 편함
             gameObject.name = $"Fruit_{data.level:00}_{data.nameEn}";

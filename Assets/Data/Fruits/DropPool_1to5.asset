@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4a3f5917c9bb7429a07c877c06733e, type: 3}
+  m_Name: DropPool_1to5
+  m_EditorClassIdentifier: Assembly-CSharp::SuikaGame.Data.DropPoolData
+  entries:
+  - fruit: {fileID: 11400000, guid: 1ad1ce793e38c8947abf95474e4afc6d, type: 2}
+    weight: 1
+  - fruit: {fileID: 11400000, guid: bccd4347a5ef3b648a7b9ccf24240351, type: 2}
+    weight: 1
+  - fruit: {fileID: 11400000, guid: 3ef60c21c7a790e439a55b743c6daa4e, type: 2}
+    weight: 1
+  - fruit: {fileID: 11400000, guid: 012276de48b459146b84e945fae07e0d, type: 2}
+    weight: 1
+  - fruit: {fileID: 11400000, guid: 1a51d6ae14c85b043a5cb4a78be675de, type: 2}
+    weight: 1

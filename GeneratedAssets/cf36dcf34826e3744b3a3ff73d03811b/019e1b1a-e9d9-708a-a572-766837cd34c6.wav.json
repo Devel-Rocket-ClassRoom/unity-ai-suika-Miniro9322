@@ -1,0 +1,15 @@
+{
+    "asset": "cf36dcf34826e3744b3a3ff73d03811b",
+    "fileName": "019e1b1a-e9d9-708a-a572-766837cd34c6.wav",
+    "prompt": "Satisfying pop or snap sound for a merger, with a tiny happy chime at the end, cute and high quality",
+    "negativePrompt": "",
+    "model": "elevenlabs-sound-effects-v2",
+    "modelName": "ElevenLabs Sound Effects V2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

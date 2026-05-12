@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65bf14aa992f8246a517ad2beea9bde, type: 3}
+  m_Name: 11_Watermelon
+  m_EditorClassIdentifier: Assembly-CSharp::SuikaGame.Data.FruitData
+  level: 11
+  nameKo: "\uC218\uBC15"
+  nameEn: Watermelon
+  relativeRadius: 8.8
+  mergeScore: 66
+  icon: {fileID: 21300000, guid: 3bb324294566dec4183a400c5b414a0d, type: 3}
+  tightRadius: 380.5
+  nextStage: {fileID: 0}
+  prefab: {fileID: 7583823935093609215, guid: fabfe9ad0e3e7be42ac4b3ceee4315c6, type: 3}

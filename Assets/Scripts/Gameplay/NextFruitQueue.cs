@@ -35,6 +35,11 @@ namespace SuikaGame.Gameplay
 
         private bool subscribed;
 
+        private void Start()
+        {
+            ResetQueue();
+        }
+
         private void OnEnable()
         {
             if (dropPool == null)
@@ -44,16 +49,11 @@ namespace SuikaGame.Gameplay
                 return;
             }
 
-            ResetQueue();
-
             if (spawner != null)
             {
                 spawner.OnReadyForNext += Advance;
-                spawner.CurrentFruit = Current;
                 subscribed = true;
             }
-
-            OnQueueChanged?.Invoke(Current, Next);
         }
 
         private void OnDisable()
@@ -68,15 +68,26 @@ namespace SuikaGame.Gameplay
         /// <summary>큐를 초기 상태로 되돌리고 새 시드 적용. 재시작 시 호출.</summary>
         public void ResetQueue()
         {
+            // initialSeed 가 -1이면 매번 다른 결과를 위해 현재 시간 기반 시드 사용 가능.
+            // 하지만 보통 Random.InitState 를 안 부르면 계속 이어짐.
+            // 명시적으로 -1일 때 랜덤하게 섞고 싶다면 아래처럼 처리.
             if (initialSeed >= 0)
             {
                 UnityEngine.Random.InitState(initialSeed);
             }
+            else
+            {
+                // 명시적으로 시드를 섞어줌 (재시작 시 매번 다른 패턴을 위해)
+                UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+            }
+
             Current = Pick();
             Next = Pick();
 
             if (spawner != null) spawner.CurrentFruit = Current;
             OnQueueChanged?.Invoke(Current, Next);
+            
+            Debug.Log($"[NextFruitQueue] Reset! Current: {Current?.nameEn}, Next: {Next?.nameEn}");
         }
 
         /// <summary>한 칸 진행. 외부에서 강제 호출 가능 (테스트용).</summary>

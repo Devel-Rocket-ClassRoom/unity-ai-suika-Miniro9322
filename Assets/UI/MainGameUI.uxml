@@ -1,0 +1,49 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="MainGameUI.uss" />
+    <ui:VisualElement name="root" class="screen">
+        <!-- 좌측 패널: 점수 -->
+        <ui:VisualElement name="leftPanel" class="panel left-panel">
+            <ui:Label text="SCORE" class="label-title" />
+            <ui:Label name="currentScore" text="0" class="label-value" />
+            
+            <ui:VisualElement class="best-container">
+                <ui:Label text="BEST" class="label-best-title" />
+                <ui:Label name="bestScore" text="0" class="label-best-value" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- 중앙 영역 (투명) -->
+        <ui:VisualElement name="centerArea" style="flex-grow: 1;" />
+
+        <!-- 우측 패널: 다음 과일 & 도감 -->
+        <ui:VisualElement name="rightPanel" class="panel right-panel">
+            <ui:VisualElement class="next-container">
+                <ui:Label text="NEXT" class="label-title" />
+                <ui:VisualElement class="next-icon-frame">
+                    <ui:VisualElement name="nextIcon" class="next-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <ui:Label text="EVOLUTION" class="label-title" />
+            <ui:VisualElement name="evolutionList" class="evolution-list" />
+            </ui:VisualElement>
+
+            <!-- 게임오버 오버레이 (숨김 기본) -->
+            <ui:VisualElement name="gameOverOverlay" class="game-over-overlay" style="display: none;">
+            <ui:Label text="GAME OVER" class="label-game-over-title" />
+            
+            <ui:VisualElement class="game-over-score-container">
+                <ui:Label text="FINAL SCORE" class="label-title" />
+                <ui:Label name="finalScore" text="0" class="label-value" />
+                
+                <ui:Label text="BEST" class="label-best-title" />
+                <ui:Label name="finalBestScore" text="0" class="label-best-value" />
+            </ui:VisualElement>
+
+            <ui:VisualElement class="game-over-buttons">
+                <ui:Button name="retryButton" text="RETRY" class="ui-button" />
+                <ui:Button name="mainButton" text="MAIN" class="ui-button" />
+            </ui:VisualElement>
+            </ui:VisualElement>
+            </ui:VisualElement>
+            </ui:UXML>

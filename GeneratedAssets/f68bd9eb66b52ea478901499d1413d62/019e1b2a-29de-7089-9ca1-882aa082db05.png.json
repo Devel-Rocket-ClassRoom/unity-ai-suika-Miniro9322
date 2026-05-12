@@ -1,0 +1,28 @@
+{
+    "asset": "f68bd9eb66b52ea478901499d1413d62",
+    "fileName": "019e1b2a-29de-7089-9ca1-882aa082db05.png",
+    "prompt": "A single Dekopon (hallabong) represented as a perfect circular sphere, cute kawaii character style with simple eyes and a small smile, bright vibrant orange color, flat vector art with soft highlights, glossy toy pop aesthetic, centered, no stems sticking outside the circular bounds, white background",
+    "negativePrompt": "",
+    "model": "gemini-3.1-flash",
+    "modelName": "Gemini 3.1 Nano Banana 2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelatePixelGridSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0,
+    "dimensions": {
+        "width": 1024,
+        "height": 1024
+    },
+    "spriteSheet": false,
+    "duration": 0.0
+}

@@ -83,9 +83,22 @@ namespace SuikaGame.Gameplay
         {
             var gs = ResolveGameState();
             if (gs != null && gs.CurrentState != GameStateManager.State.Playing) return;
+
+            // 이벤트 누락이나 초기화 시점 차이를 대비해 OverheadFruits 직접 체크
+            if (deathLine != null)
+            {
+                foreach (var f in deathLine.OverheadFruits)
+                {
+                    if (f != null && !tracked.ContainsKey(f))
+                    {
+                        tracked.Add(f, new Entry { enterTime = Time.time });
+                    }
+                }
+            }
+
             if (tracked.Count == 0) return;
 
-            // null 정리 (Fruit Destroy 직후 Exit 누락 안전망)
+            // null 정리
             _cleanupCache.Clear();
             foreach (var kv in tracked)
             {
@@ -102,6 +115,23 @@ namespace SuikaGame.Gameplay
             {
                 var f = kv.Key;
                 if (f == null) continue;
+                
+                // 과일이 실제로 아직 영역에 있는지 확인 (Exited 이벤트 보완)
+                bool stillInside = false;
+                if (deathLine != null)
+                {
+                    foreach (var overhead in deathLine.OverheadFruits)
+                    {
+                        if (overhead == f) { stillInside = true; break; }
+                    }
+                }
+                
+                if (!stillInside)
+                {
+                    _cleanupCache.Add(f);
+                    continue;
+                }
+
                 float dangerStart = Mathf.Max(kv.Value.enterTime, f.SpawnTime + spawnGrace);
                 if (now - dangerStart >= threshold)
                 {
@@ -109,6 +139,9 @@ namespace SuikaGame.Gameplay
                     return;
                 }
             }
+            
+            // 나간 과일들 제거
+            foreach (var f in _cleanupCache) tracked.Remove(f);
         }
 
         private void TriggerGameOver()

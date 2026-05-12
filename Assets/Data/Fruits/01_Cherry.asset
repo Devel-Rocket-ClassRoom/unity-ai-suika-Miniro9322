@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65bf14aa992f8246a517ad2beea9bde, type: 3}
+  m_Name: 01_Cherry
+  m_EditorClassIdentifier: Assembly-CSharp::SuikaGame.Data.FruitData
+  level: 1
+  nameKo: "\uCCB4\uB9AC"
+  nameEn: Cherry
+  relativeRadius: 1
+  mergeScore: 1
+  icon: {fileID: 21300000, guid: a308243299e64134088de8072d4653bb, type: 3}
+  tightRadius: 359.5
+  nextStage: {fileID: 11400000, guid: bccd4347a5ef3b648a7b9ccf24240351, type: 2}
+  prefab: {fileID: 3478521433582184352, guid: 15c9b38ea1050c640952b9e8b2357a80, type: 3}

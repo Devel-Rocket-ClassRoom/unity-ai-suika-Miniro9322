@@ -106,9 +106,77 @@ namespace SuikaGame.EditorTools
             Debug.Log($"[Suika] FruitData 11종 + DropPool 생성/갱신 완료: {FruitFolder}");
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = pool;
-        }
+            }
 
-        private static void EnsureFolder(string assetPath)
+            [MenuItem("Tools/Suika/Analyze Fruit Sprites")]
+            public static void AnalyzeSprites()
+            {
+            string[] guids = AssetDatabase.FindAssets($"t:{nameof(FruitData)}", new[] { FruitFolder });
+            foreach (var guid in guids)
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var data = AssetDatabase.LoadAssetAtPath<FruitData>(path);
+                if (data == null || data.icon == null) continue;
+
+                var sprite = data.icon;
+                var tex = sprite.texture;
+                string texPath = AssetDatabase.GetAssetPath(tex);
+                var importer = AssetImporter.GetAtPath(texPath) as TextureImporter;
+                
+                if (importer == null) continue;
+
+                bool wasReadable = importer.isReadable;
+                if (!wasReadable)
+                {
+                    importer.isReadable = true;
+                    importer.SaveAndReimport();
+                }
+
+                // 다시 로드 (Reimport 후)
+                tex = AssetDatabase.LoadAssetAtPath<Texture2D>(texPath);
+                var pixels = tex.GetPixels32();
+                int minX = tex.width, minY = tex.height, maxX = 0, maxY = 0;
+                bool found = false;
+
+                // Sprite Rect 영역 내에서만 검사
+                Rect r = sprite.rect;
+                for (int y = (int)r.y; y < (int)r.yMax; y++)
+                {
+                    for (int x = (int)r.x; x < (int)r.xMax; x++)
+                    {
+                        // 투명도 임계치를 높여 부드러운 외곽선을 제외 (더 타이트한 판정)
+                        if (pixels[y * tex.width + x].a > 20) 
+                        {
+                            if (x < minX) minX = x;
+                            if (y < minY) minY = y;
+                            if (x > maxX) maxX = x;
+                            if (y > maxY) maxY = y;
+                            found = true;
+                        }
+                    }
+                }
+
+                if (found)
+                {
+                    float width = maxX - minX;
+                    float height = maxY - minY;
+                    // 실제 "반지름"은 너비와 높이 중 큰 쪽의 절반으로 간주 (또는 평균)
+                    data.tightRadius = Mathf.Max(width, height) * 0.5f;
+                    EditorUtility.SetDirty(data);
+                    Debug.Log($"[Suika] Analyzed {data.nameEn}: Tight Radius = {data.tightRadius}px");
+                }
+
+                if (!wasReadable)
+                {
+                    importer.isReadable = false;
+                    importer.SaveAndReimport();
+                }
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Suika] 과일 스프라이트 분석 완료.");
+            }
+
+            private static void EnsureFolder(string assetPath)
         {
             if (AssetDatabase.IsValidFolder(assetPath)) return;
 

@@ -1,0 +1,15 @@
+{
+    "asset": "1dc0cec64cb11aa438110f6b6f5a2edc",
+    "fileName": "019e1b1b-2d7c-7d54-bdec-22b2cc5e463f.wav",
+    "prompt": "Clean and sharp UI button click, bright and high quality",
+    "negativePrompt": "",
+    "model": "elevenlabs-sound-effects-v2",
+    "modelName": "ElevenLabs Sound Effects V2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

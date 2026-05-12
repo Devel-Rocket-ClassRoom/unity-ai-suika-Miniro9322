@@ -31,6 +31,9 @@ namespace SuikaGame.Data
         [Tooltip("UI/스폰 시 사용할 스프라이트 아이콘.")]
         public Sprite icon;
 
+        [Tooltip("아이콘 내 실제 과일 부분의 반지름 (픽셀 단위).")]
+        public float tightRadius = 512f;
+
         [Header("머지 연결")]
         [Tooltip("머지 결과 다음 단계 과일 데이터. 최종 단계(11번 수박)는 null.")]
         public FruitData nextStage;

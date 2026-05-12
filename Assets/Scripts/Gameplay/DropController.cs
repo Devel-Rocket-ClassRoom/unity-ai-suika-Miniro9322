@@ -115,6 +115,11 @@ namespace SuikaGame.Gameplay
         private void Update()
         {
             if (box == null) return;
+            if (GameStateManager.Instance != null && GameStateManager.Instance.CurrentState != GameStateManager.State.Playing)
+            {
+                ApplyTransform();
+                return;
+            }
             if (IsLocked)
             {
                 // 잠금 중에도 transform 은 마지막 위치 유지. 시각화는 호출자가 끄도록.

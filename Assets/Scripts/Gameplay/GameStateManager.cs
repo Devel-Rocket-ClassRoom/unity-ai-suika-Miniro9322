@@ -21,17 +21,13 @@ namespace SuikaGame.Gameplay
 
         /// <summary>게임오버 진입 순간 1회 호출.</summary>
         public event Action OnGameOver;
+        public static event Action OnGameOverStatic;
 
         /// <summary>Playing 으로 복귀(재시작) 순간 호출.</summary>
         public event Action OnRestarted;
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
             Instance = this;
         }
 
@@ -46,7 +42,8 @@ namespace SuikaGame.Gameplay
             if (CurrentState == State.GameOver) return;
             CurrentState = State.GameOver;
             OnGameOver?.Invoke();
-        }
+            OnGameOverStatic?.Invoke();
+            }
 
         /// <summary>재시작 상태로 복귀. 실제 리셋 동작은 외부 시스템(NextFruitQueue 등) 이 OnRestarted 를 구독해 처리.</summary>
         public void Restart()

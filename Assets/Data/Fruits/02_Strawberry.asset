@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f65bf14aa992f8246a517ad2beea9bde, type: 3}
+  m_Name: 02_Strawberry
+  m_EditorClassIdentifier: Assembly-CSharp::SuikaGame.Data.FruitData
+  level: 2
+  nameKo: "\uB538\uAE30"
+  nameEn: Strawberry
+  relativeRadius: 1.5
+  mergeScore: 3
+  icon: {fileID: 21300000, guid: eda4daa1e421d804889f5f0d9a9f0681, type: 3}
+  tightRadius: 317.5
+  nextStage: {fileID: 11400000, guid: 3ef60c21c7a790e439a55b743c6daa4e, type: 2}
+  prefab: {fileID: 1855259819227080448, guid: 5843c3cb4c7097648a35e90cbc3c87ea, type: 3}

@@ -1,0 +1,28 @@
+{
+    "asset": "0bea04bb0d9642d4c9ada116490e10d9",
+    "fileName": "019e1b29-fcde-7bf9-94f3-85c4e42294c3.png",
+    "prompt": "A single bunch of Grapes represented as a perfect circular sphere shape, cute kawaii character style with simple eyes and a small smile, bright vibrant purple color, flat vector art with soft highlights, glossy toy pop aesthetic, centered, no stems sticking outside the circular bounds, white background",
+    "negativePrompt": "",
+    "model": "gemini-3.1-flash",
+    "modelName": "Gemini 3.1 Nano Banana 2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "refinementMode": "Generation",
+    "pixelateTargetSize": 0,
+    "pixelateKeepImageSize": false,
+    "pixelatePixelBlockSize": 0,
+    "pixelatePixelGridSize": 0,
+    "pixelateMode": 0,
+    "pixelateOutlineThickness": 0,
+    "doodles": {
+        "m_Items": []
+    },
+    "upscaleFactor": 0,
+    "dimensions": {
+        "width": 1024,
+        "height": 1024
+    },
+    "spriteSheet": false,
+    "duration": 0.0
+}

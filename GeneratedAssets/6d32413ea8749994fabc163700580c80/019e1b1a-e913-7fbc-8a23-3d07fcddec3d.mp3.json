@@ -1,0 +1,15 @@
+{
+    "asset": "6d32413ea8749994fabc163700580c80",
+    "fileName": "019e1b1a-e913-7fbc-8a23-3d07fcddec3d.mp3",
+    "prompt": "Light and cheerful acoustic piano music for a casual puzzle game, loopable, warm and friendly, BPM 110",
+    "negativePrompt": "",
+    "model": "google-lyria-3-clip",
+    "modelName": "Google Lyria 3 Clip",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}
