@@ -37,6 +37,12 @@ namespace SuikaGame.Gameplay
         /// </summary>
         public bool CanMerge { get; set; } = true;
 
+        /// <summary>
+        /// 스폰된(또는 풀에서 재활성화된) 시각(Time.time). #19 데스라인 grace 시간 계산에 사용.
+        /// Apply() 호출 / OnEnable 시점에 갱신된다.
+        /// </summary>
+        public float SpawnTime { get; private set; }
+
         private void Reset()
         {
             CacheComponents();
@@ -50,6 +56,12 @@ namespace SuikaGame.Gameplay
         private void Awake()
         {
             CacheComponents();
+        }
+
+        private void OnEnable()
+        {
+            // 풀에서 재활성화될 때도 grace 가 다시 카운트되도록.
+            SpawnTime = Time.time;
         }
 
         private void CacheComponents()
@@ -86,6 +98,7 @@ namespace SuikaGame.Gameplay
             gameObject.name = $"Fruit_{data.level:00}_{data.nameEn}";
 
             CanMerge = true;
+            SpawnTime = Time.time;
         }
 
         // ----- 머지 충돌 (#13) -----
