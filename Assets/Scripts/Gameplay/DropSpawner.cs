@@ -100,12 +100,36 @@ namespace SuikaGame.Gameplay
             OnDropped?.Invoke(currentFruit, fruit);
             OnDroppedStatic?.Invoke(currentFruit, fruit);
 
-            cooldownRoutine = StartCoroutine(CooldownRoutine());
+            cooldownRoutine = StartCoroutine(WaitForLandRoutine(fruit));
         }
 
-        private IEnumerator CooldownRoutine()
+        private IEnumerator WaitForLandRoutine(Fruit fruit)
         {
-            yield return new WaitForSeconds(cooldownSeconds);
+            bool fruitLanded = false;
+            if (fruit != null)
+            {
+                Action<Fruit> handleLanded = null;
+                handleLanded = (f) => { fruitLanded = true; };
+                fruit.OnLanded += handleLanded;
+
+                // 과일이 착지할 때까지 대기 (또는 타임아웃 3초)
+                float timeout = Time.time + 3.0f;
+                while (!fruitLanded && Time.time < timeout)
+                {
+                    yield return null;
+                }
+
+                if (fruit != null) fruit.OnLanded -= handleLanded;
+            }
+            else
+            {
+                // 과일이 없으면 기본 쿨다운만큼 대기
+                yield return new WaitForSeconds(cooldownSeconds);
+            }
+
+            // 추가 여유 시간 (착지 후 바로 다음 과일이 나오면 너무 급하므로)
+            yield return new WaitForSeconds(0.2f);
+
             IsDropping = false;
             UpdatePreview();
             if (dropController != null) dropController.IsLocked = false;

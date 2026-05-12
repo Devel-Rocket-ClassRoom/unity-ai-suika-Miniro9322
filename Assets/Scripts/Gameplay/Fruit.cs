@@ -43,6 +43,10 @@ namespace SuikaGame.Gameplay
         /// </summary>
         public float SpawnTime { get; private set; }
 
+        /// <summary>이 과일이 바닥이나 다른 과일에 처음 부딪혔을 때 발생.</summary>
+        public event Action<Fruit> OnLanded;
+        private bool hasLanded = false;
+
         private void Reset()
         {
             CacheComponents();
@@ -62,6 +66,7 @@ namespace SuikaGame.Gameplay
         {
             // 풀에서 재활성화될 때도 grace 가 다시 카운트되도록.
             SpawnTime = Time.time;
+            hasLanded = false;
         }
 
         private void CacheComponents()
@@ -103,31 +108,32 @@ namespace SuikaGame.Gameplay
                         transform.localScale = new Vector3(scale, scale, 1f);
                         
                         // Collider 반지름은 scale 이 적용된 후 worldRadius 가 되도록 하되,
-                        // 시각적인 느낌을 위해 실제 영역보다 아주 살짝(약 4%) 작게 설정.
-                        circle.radius = localTightRadius * 0.96f;
-                        }
-                        else
-                        {
+                        // 시각적인 느낌을 위해 실제 영역보다 아주 살짝 작게 설정. (0.9x)
+                        circle.radius = localTightRadius * 0.9f;
+                    }
+                    else
+                    {
                         transform.localScale = Vector3.one;
-                        circle.radius = worldRadius * 0.96f;
-                        }
-                        }
-                        else
-                        {
-                        transform.localScale = Vector3.one;
-                        circle.radius = worldRadius * 0.96f;
-                        }
-                        }
-                        else
-                        {
-                        circle.radius = worldRadius * 0.96f;
-                        }
+                        circle.radius = worldRadius * 0.9f;
+                    }
+                }
+                else
+                {
+                    transform.localScale = Vector3.one;
+                    circle.radius = worldRadius * 0.9f;
+                }
+            }
+            else
+            {
+                circle.radius = worldRadius * 0.9f;
+            }
 
             // 이름도 갱신해두면 디버깅 편함
             gameObject.name = $"Fruit_{data.level:00}_{data.nameEn}";
 
             CanMerge = true;
             SpawnTime = Time.time;
+            hasLanded = false;
         }
 
         // ----- 머지 충돌 (#13) -----
@@ -141,6 +147,13 @@ namespace SuikaGame.Gameplay
 
         private void OnCollisionEnter2D(Collision2D col)
         {
+            // 첫 충돌 시 착지 이벤트 발화 (스포너 대기 해제용)
+            if (!hasLanded)
+            {
+                hasLanded = true;
+                OnLanded?.Invoke(this);
+            }
+
             if (!CanMerge) return;
             if (data == null || IsFinalStage) return; // 최종 단계(수박끼리)는 #15에서 별도 처리
 
