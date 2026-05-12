@@ -144,7 +144,46 @@ namespace SuikaGame.EditorTools
             }
         }
 
-        // ---------- 4) 한 번에 ----------
+        // ---------- 4) 데스라인 ----------
+
+        [MenuItem("Tools/Suika/Create Death Line In Scene")]
+        public static void CreateDeathLineInScene()
+        {
+            var box = Object.FindFirstObjectByType<BoxContainer>();
+            if (box == null)
+            {
+                Debug.LogError("[Suika] 씬에 BoxContainer 가 없음. 먼저 Tools/Suika/Create Box Container In Scene 실행.");
+                return;
+            }
+
+            var existing = Object.FindFirstObjectByType<DeathLine>();
+            DeathLine dl;
+            if (existing != null)
+            {
+                dl = existing;
+            }
+            else
+            {
+                var go = new GameObject("DeathLine");
+                go.transform.SetParent(box.transform.parent, false);
+                go.transform.position = box.transform.position;
+                dl = go.AddComponent<DeathLine>();
+                Undo.RegisterCreatedObjectUndo(go, "Create DeathLine");
+            }
+
+            // SerializedObject 로 box 필드 설정 (private SerializeField)
+            var so = new SerializedObject(dl);
+            so.FindProperty("box").objectReferenceValue = box;
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            dl.EnsureChildren();
+            dl.Arrange();
+
+            Selection.activeGameObject = dl.gameObject;
+            Debug.Log("[Suika] DeathLine 씬에 배치 완료.");
+        }
+
+        // ---------- 5) 한 번에 ----------
 
         [MenuItem("Tools/Suika/Run Full Box Setup")]
         public static void RunFullSetup()
@@ -152,6 +191,7 @@ namespace SuikaGame.EditorTools
             SetupLayers();
             CreateOrUpdateWallMaterial();
             CreateBoxContainerInScene();
+            CreateDeathLineInScene();
         }
 
         // ---------- helpers ----------
