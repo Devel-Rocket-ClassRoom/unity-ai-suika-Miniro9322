@@ -1,3 +1,4 @@
+using System;
 using SuikaGame.Data;
 using UnityEngine;
 
@@ -85,6 +86,37 @@ namespace SuikaGame.Gameplay
             gameObject.name = $"Fruit_{data.level:00}_{data.nameEn}";
 
             CanMerge = true;
+        }
+
+        // ----- 머지 충돌 (#13) -----
+
+        /// <summary>
+        /// 동일 레벨 두 과일이 충돌하면 발화. 두 인스턴스 중 GetInstanceID 가 작은 쪽이 발행자.
+        /// 두 과일 모두 CanMerge=false 로 잠긴 상태로 전달되므로, 외부(FruitMerger) 가 안전하게 처리하면 됨.
+        /// 인자: (lower, higher, midPosition).
+        /// </summary>
+        public static event Action<Fruit, Fruit, Vector2> OnMergeRequested;
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            if (!CanMerge) return;
+            if (data == null || IsFinalStage) return; // 최종 단계(수박끼리)는 #15에서 별도 처리
+
+            var other = col.collider.GetComponent<Fruit>();
+            if (other == null || other == this) return;
+            if (!other.CanMerge) return;
+            if (data == null || other.data == null) return;
+            if (other.Level != Level) return;
+
+            // 두 개 중 GetInstanceID 가 작은 쪽만 머지를 트리거 (중복 방지)
+            if (GetInstanceID() > other.GetInstanceID()) return;
+
+            // 양쪽 모두 머지 잠금
+            CanMerge = false;
+            other.CanMerge = false;
+
+            Vector2 mid = ((Vector2)transform.position + (Vector2)other.transform.position) * 0.5f;
+            OnMergeRequested?.Invoke(this, other, mid);
         }
     }
 }
