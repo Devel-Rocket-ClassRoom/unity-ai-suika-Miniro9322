@@ -133,6 +133,14 @@ namespace SuikaGame.EditorTools
                 PrefabUtility.SaveAsPrefabAsset(root, path);
                 PrefabUtility.UnloadPrefabContents(root);
             }
+
+            // FruitData 에 프리팹 역참조 백필 (#11 스폰에서 사용)
+            var prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+            if (prefabAsset != null && data.prefab != prefabAsset)
+            {
+                data.prefab = prefabAsset;
+                EditorUtility.SetDirty(data);
+            }
         }
 
         private static FruitData LoadFruitDataByLevel(int level)
